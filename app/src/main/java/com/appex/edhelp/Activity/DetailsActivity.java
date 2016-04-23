@@ -78,6 +78,7 @@ public class DetailsActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
                 intent.putExtra("lat",college.getLat());
                 intent.putExtra("long",college.getLng());
+                intent.putExtra("name",college.getName());
                 startActivity(intent);
             }
         });

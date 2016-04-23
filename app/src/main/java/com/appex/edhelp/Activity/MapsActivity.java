@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import com.appex.edhelp.R;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -16,7 +17,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     Double lat, lng;
-
+String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +28,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent intent = getIntent();
         lat = intent.getDoubleExtra("lat",0);
         lng = intent.getDoubleExtra("long",0);
+        name = intent.getStringExtra("name");
         mapFragment.getMapAsync(this);
     }
 
@@ -46,8 +48,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney and move the camera
         LatLng collegeLatLng = new LatLng(lat, lng);
-        mMap.addMarker(new MarkerOptions().position(collegeLatLng));
+        mMap.addMarker(new MarkerOptions().position(collegeLatLng).title(name));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(collegeLatLng));
-        mMap.moveCamera(CameraUpdateFactory.zoomBy(15f));
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(collegeLatLng, 14);
+        mMap.animateCamera(cameraUpdate);
     }
 }
