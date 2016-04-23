@@ -29,6 +29,11 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
         return new ViewHolder(view);
     }
 
+    public CollegesAdapter(Context mContext, ArrayList<College> collegeArrayList) {
+        this.mContext = mContext;
+        this.collegeArrayList = collegeArrayList;
+    }
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
@@ -45,6 +50,7 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
                     }
                 }
         );
+
 
     }
 
