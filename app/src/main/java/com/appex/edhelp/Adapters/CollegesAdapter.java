@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,16 +23,19 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
 
     Context mContext;
     ArrayList<College> collegeArrayList;
+    ArrayList<College> allColleges;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.college_brief_layout,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.college_brief_layout, parent, false);
         return new ViewHolder(view);
     }
 
     public CollegesAdapter(Context mContext, ArrayList<College> collegeArrayList) {
         this.mContext = mContext;
         this.collegeArrayList = collegeArrayList;
+        allColleges = new ArrayList<>();
+        allColleges.addAll(collegeArrayList);
     }
 
     @Override
@@ -46,7 +50,7 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(mContext, DetailsActivity.class);
-                        intent.putExtra("id",college.getId());
+                        intent.putExtra("id", college.getId());
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContext.startActivity(intent);
                     }
@@ -67,12 +71,24 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
         public TextView collegeNameTextView;
         public TextView addressTextView;
         public TextView contactTextView;
+
         public ViewHolder(View v) {
             super(v);
-            cardView =(CardView) v.findViewById(R.id.eventCards);
-            collegeNameTextView = (TextView)v.findViewById(R.id.college_name);
-            addressTextView = (TextView)v.findViewById(R.id.college_location);
-            contactTextView = (TextView)v.findViewById(R.id.college_contact);
+            cardView = (CardView) v.findViewById(R.id.eventCards);
+            collegeNameTextView = (TextView) v.findViewById(R.id.college_name);
+            addressTextView = (TextView) v.findViewById(R.id.college_location);
+            contactTextView = (TextView) v.findViewById(R.id.college_contact);
         }
+    }
+
+    public void filter(String query) {
+        Log.d("query", query);
+        collegeArrayList.clear();
+        for (College college : allColleges) {
+            Log.d("college", college.getName());
+            if (college.getName().toLowerCase().contains(query.toLowerCase()))
+                collegeArrayList.add(college);
+        }
+        notifyDataSetChanged();
     }
 }
