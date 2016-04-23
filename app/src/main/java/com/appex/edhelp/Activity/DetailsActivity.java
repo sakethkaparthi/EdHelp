@@ -1,4 +1,4 @@
-package com.appex.edhelp;
+package com.appex.edhelp.Activity;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
 import com.appex.edhelp.Models.College;
+import com.appex.edhelp.R;
 import com.bumptech.glide.Glide;
 
 import io.realm.Realm;
@@ -21,16 +22,20 @@ public class DetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ImageView imageView = (ImageView) findViewById(R.id.college_image_view);
-        Glide.with(this).load("https://lh3.googleusercontent.com/-Wwn3Zq54Oy8/AAAAAAAAAAI/AAAAAAAAABI/OOYfPYANtOg/s0-c-k-no-ns/photo.jpg")
-                .into(imageView);
-        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        RealmConfiguration realmConfig = new RealmConfiguration.Builder(this).build();
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder(this)
+                .deleteRealmIfMigrationNeeded()
+                .build();
         Realm realm = Realm.getInstance(realmConfig);
         int id = getIntent().getExtras().getInt("id");
         RealmResults<College> colleges = realm.where(College.class).equalTo("id", id)
                 .beginGroup().findAll();
         College college  = colleges.get(0);
         getSupportActionBar().setTitle(college.getName());
+        ImageView imageView = (ImageView) findViewById(R.id.college_image_view);
+        Glide.with(this).load(college.getImage())
+                .into(imageView);
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+
+
     }
 }

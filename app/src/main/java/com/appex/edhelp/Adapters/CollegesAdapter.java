@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.appex.edhelp.DetailsActivity;
+import com.appex.edhelp.Activity.DetailsActivity;
 import com.appex.edhelp.Models.College;
 import com.appex.edhelp.R;
 

@@ -26,7 +26,7 @@ import io.realm.RealmConfiguration;
 
 public class MainActivity extends AppCompatActivity {
 
-    static final String url = "https://api.myjson.com/bins/2lyae";
+    static final String url = "https://api.myjson.com/bins/2peim";
     RecyclerView mRecyclerView;
     ProgressDialog mProgressDialog;
     CollegesAdapter collegesAdapter;
@@ -42,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
         mProgressDialog.setMessage("Loading Data...");
         mProgressDialog.setCancelable(true);
         collegeArrayList = new ArrayList<>();
-        RealmConfiguration realmConfig = new RealmConfiguration.Builder(this).build();
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder(this)
+                .deleteRealmIfMigrationNeeded()
+                .build();
         realm = Realm.getInstance(realmConfig);
         loadData();
     }
