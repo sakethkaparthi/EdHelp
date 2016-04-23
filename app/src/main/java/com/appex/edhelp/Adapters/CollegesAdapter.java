@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.appex.edhelp.Activity.CollegeInfoActivity;
+import com.appex.edhelp.DetailsActivity;
 import com.appex.edhelp.Models.College;
 import com.appex.edhelp.R;
 
@@ -45,8 +45,10 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(mContext, CollegeInfoActivity.class);
+                        Intent intent = new Intent(mContext, DetailsActivity.class);
+                        intent.putExtra("id",college.getId());
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContext.startActivity(intent);
                     }
                 }
         );

@@ -21,6 +21,9 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 public class MainActivity extends AppCompatActivity {
 
     static final String url = "https://api.myjson.com/bins/2lyae";
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog mProgressDialog;
     CollegesAdapter collegesAdapter;
     ArrayList<College> collegeArrayList;
+    Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +42,14 @@ public class MainActivity extends AppCompatActivity {
         mProgressDialog.setMessage("Loading Data...");
         mProgressDialog.setCancelable(true);
         collegeArrayList = new ArrayList<>();
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder(this).build();
+        realm = Realm.getInstance(realmConfig);
         loadData();
     }
 
-    private void loadData(){
+    private void loadData() {
 
-        if(!mProgressDialog.isShowing())
+        if (!mProgressDialog.isShowing())
             mProgressDialog.show();
         final JsonArrayRequest request = new
                 JsonArrayRequest(Request.Method.GET, url, (String) null, new Response.Listener<JSONArray>() {
@@ -52,11 +58,12 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.d("JSON", response.toString());
 
-                try{
+                try {
 
                     JSONArray collegeArray = response;
-                    for(int i = 0; i < collegeArray.length(); i++){
-                        College college = new College();
+                    for (int i = 0; i < collegeArray.length(); i++) {
+                        realm.beginTransaction();
+                        College college = realm.createObject(College.class);
                         college.setName(collegeArray.getJSONObject(i).getString("FullCollegeName"));
                         college.setLocation(collegeArray.getJSONObject(i).getString("City"));
                         college.setContact(collegeArray.getJSONObject(i).getString("ContactNo."));
@@ -66,15 +73,15 @@ public class MainActivity extends AppCompatActivity {
                         college.setState(collegeArray.getJSONObject(i).getString("State"));
                         college.setBranches(collegeArray.getJSONObject(i).getString("Branches"));
                         collegeArrayList.add(college);
+                        realm.commitTransaction();
                     }
-                }
-                catch (JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 display();
             }
 
-            },new Response.ErrorListener() {
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
@@ -84,13 +91,13 @@ public class MainActivity extends AppCompatActivity {
         Volley.newRequestQueue(getApplicationContext()).add(request);
     }
 
-    private void display(){
+    private void display() {
 
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        collegesAdapter = new CollegesAdapter(getApplicationContext(),collegeArrayList);
+        collegesAdapter = new CollegesAdapter(getApplicationContext(), collegeArrayList);
         mRecyclerView.setAdapter(collegesAdapter);
         mProgressDialog.dismiss();
     }

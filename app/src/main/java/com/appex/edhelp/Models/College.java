@@ -1,9 +1,11 @@
 package com.appex.edhelp.Models;
 
+import io.realm.RealmObject;
+
 /**
  * Created by anuraag on 4/23/16.
  */
-public class College {
+public class College  extends RealmObject{
 
     String name;
 
