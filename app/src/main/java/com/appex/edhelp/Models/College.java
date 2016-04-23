@@ -6,6 +6,27 @@ package com.appex.edhelp.Models;
 public class College {
 
     String name;
+    Double fees;
+    String location;
+    String image;
+    String contact;
+    Double pincode;
+    String isMains;
+    String website;
+    Integer id;
+    String state;
+    String branches;
+    Double lng;
+    Double lat;
+    String deadline;
+
+    public String getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
+    }
 
     public String getName() {
         return name;
@@ -15,7 +36,6 @@ public class College {
         this.name = name;
     }
 
-    String location;
 
     public String getLocation() {
         return location;
@@ -25,8 +45,6 @@ public class College {
         this.location = location;
     }
 
-    String contact;
-
     public String getContact() {
         return contact;
     }
@@ -34,8 +52,6 @@ public class College {
     public void setContact(String contact) {
         this.contact = contact;
     }
-
-    String website;
 
     public String getWebsite() {
         return website;
@@ -53,10 +69,6 @@ public class College {
         this.pincode = pincode;
     }
 
-    double pincode;
-
-    String isMains;
-
     public String getIsMains() {
         return isMains;
     }
@@ -64,8 +76,6 @@ public class College {
     public void setIsMains(String isMains) {
         this.isMains = isMains;
     }
-
-    int id;
 
     public int getId() {
         return id;
@@ -83,8 +93,6 @@ public class College {
         this.branches = branches;
     }
 
-    String branches;
-
     public String getState() {
         return state;
     }
@@ -93,5 +101,35 @@ public class College {
         this.state = state;
     }
 
-    String state;
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLng() {
+        return lng;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
+    }
+
+    public Double getFees() {
+        return fees;
+    }
+
+    public void setFees(Double fees) {
+        this.fees = fees;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

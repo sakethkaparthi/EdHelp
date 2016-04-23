@@ -65,6 +65,12 @@ public class MainActivity extends AppCompatActivity {
                         college.setId(collegeArray.getJSONObject(i).getInt("id"));
                         college.setState(collegeArray.getJSONObject(i).getString("State"));
                         college.setBranches(collegeArray.getJSONObject(i).getString("Branches"));
+                        college.setWebsite(collegeArray.getJSONObject(i).getString("Website"));
+                        college.setLat(collegeArray.getJSONObject(i).getDouble("lat"));
+                        college.setLng(collegeArray.getJSONObject(i).getDouble("long"));
+                        college.setFees(collegeArray.getJSONObject(i).getDouble("Fees/Year"));
+                        college.setImage(collegeArray.getJSONObject(i).getString("Image"));
+                        college.setDeadline(collegeArray.getJSONObject(i).getString("applicationdeadline"));
                         collegeArrayList.add(college);
                     }
                 }
