@@ -1,7 +1,9 @@
-package com.appex.edhelp;
+package com.appex.edhelp.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.appex.edhelp.R;
 
 public class MainActivity extends AppCompatActivity {
 
