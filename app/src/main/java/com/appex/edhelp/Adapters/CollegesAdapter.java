@@ -56,7 +56,7 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return 0;
+        return collegeArrayList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

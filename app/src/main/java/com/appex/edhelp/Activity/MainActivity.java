@@ -10,7 +10,7 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.appex.edhelp.Adapters.CollegesAdapter;
 import com.appex.edhelp.Models.College;
@@ -18,13 +18,12 @@ import com.appex.edhelp.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    static final String url = "https://api.myjson.com/bins/41tkm";
+    static final String url = "https://api.myjson.com/bins/2lyae";
     RecyclerView mRecyclerView;
     ProgressDialog mProgressDialog;
     CollegesAdapter collegesAdapter;
@@ -38,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage("Loading Data...");
         mProgressDialog.setCancelable(true);
+        collegeArrayList = new ArrayList<>();
         loadData();
     }
 
@@ -45,22 +45,22 @@ public class MainActivity extends AppCompatActivity {
 
         if(!mProgressDialog.isShowing())
             mProgressDialog.show();
-        final JsonObjectRequest request = new
-                JsonObjectRequest(Request.Method.GET, url, (String) null, new Response.Listener<JSONObject>() {
+        final JsonArrayRequest request = new
+                JsonArrayRequest(Request.Method.GET, url, (String) null, new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(JSONArray response) {
 
                 Log.d("JSON", response.toString());
 
                 try{
-                    JSONArray collegeArray = response.getJSONArray("");
-                    for(int i = 0; i < collegeArray.length(); i++){
 
+                    JSONArray collegeArray = response;
+                    for(int i = 0; i < collegeArray.length(); i++){
                         College college = new College();
-                        college.setName(collegeArray.getJSONObject(i).getString("Full College Name"));
+                        college.setName(collegeArray.getJSONObject(i).getString("FullCollegeName"));
                         college.setLocation(collegeArray.getJSONObject(i).getString("City"));
-                        college.setContact(collegeArray.getJSONObject(i).getString("Contact No."));
-                        college.setIsMains(collegeArray.getJSONObject(i).getString("Is Mains?"));
+                        college.setContact(collegeArray.getJSONObject(i).getString("ContactNo."));
+                        college.setIsMains(collegeArray.getJSONObject(i).getString("IsMains?"));
                         college.setPincode(collegeArray.getJSONObject(i).getDouble("Pincode"));
                         college.setId(collegeArray.getJSONObject(i).getInt("id"));
                         college.setState(collegeArray.getJSONObject(i).getString("State"));
