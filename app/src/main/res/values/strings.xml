@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">EdHelp</string>
     <string name="title_activity_details">DetailsActivity</string>
-    <string name="fees">&lt;b>Fees: &lt;/b> %1$d</string>
+    <string name="fees">&lt;b>Fees: &lt;/b> Rs. %1$d</string>
     <string name="deadline">&lt;b>Application Deadline: &lt;/b> %1$s</string>
     <string name="branches">&lt;b>Branches: &lt;/b></string>
     <string name="application">&lt;b>JEE Mains: &lt;/b> %1$s</string>
     <string name="website">&lt;b>Website: &lt;/b></string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
