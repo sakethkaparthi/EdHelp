@@ -19,10 +19,12 @@ import com.firebase.client.FirebaseError;
 
 import java.util.Map;
 
+import chipset.potato.Potato;
+
 public class LoginActivity extends AppCompatActivity {
 
     public static Firebase ref;
-    public static String userID;
+    String userID;
     RelativeLayout relativeLayout;
     Button signupButton, loginButton, createAccountButton;
     EditText emailEditText;
@@ -37,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         ref = new Firebase("https://edhelp.firebaseio.com");
         AuthData authData = ref.getAuth();
-        if(authData != null)
+        if (authData != null)
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
         relativeLayout = (RelativeLayout) findViewById(R.id.login_layout);
         loginButton = (Button) findViewById(R.id.login_button);
@@ -45,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         emailEditText = (EditText) findViewById(R.id.email_textview);
         passwordEditText = (EditText) findViewById(R.id.password_textview);
         retypeEditText = (EditText) findViewById(R.id.retype_textview);
-        createAccountButton= (Button) findViewById(R.id.create_button);
+        createAccountButton = (Button) findViewById(R.id.create_button);
         passwordResetTextView = (TextView) findViewById(R.id.password_reset_textview);
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage("Please Wait...");
@@ -53,23 +55,24 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mProgressDialog.isShowing())
+                if (!mProgressDialog.isShowing())
                     mProgressDialog.show();
                 signupButton.setVisibility(View.GONE);
                 ref.authWithPassword(emailEditText.getText().toString(), passwordEditText.getText().toString(), new Firebase.AuthResultHandler() {
                     @Override
                     public void onAuthenticated(AuthData authData) {
-                        Snackbar.make(relativeLayout,"Logged In Successfully",Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(relativeLayout, "Logged In Successfully", Snackbar.LENGTH_SHORT).show();
                         mProgressDialog.dismiss();
                         userID = authData.getUid();
-                        Log.d("USERID",userID);
+                        Log.d("USERID", userID);
+                        Potato.potate(getApplicationContext()).Preferences().putSharedPreference("uid", userID);
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     }
 
                     @Override
                     public void onAuthenticationError(FirebaseError firebaseError) {
                         mProgressDialog.dismiss();
-                        Snackbar.make(relativeLayout,"Wrong Credentials",Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(relativeLayout, "Wrong Credentials", Snackbar.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -88,13 +91,13 @@ public class LoginActivity extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mProgressDialog.isShowing())
+                if (!mProgressDialog.isShowing())
                     mProgressDialog.show();
-                if(passwordEditText.getText().toString().equals(retypeEditText.getText().toString())){
+                if (passwordEditText.getText().toString().equals(retypeEditText.getText().toString())) {
                     ref.createUser(emailEditText.getText().toString(), passwordEditText.getText().toString(), new Firebase.ValueResultHandler<Map<String, Object>>() {
                         @Override
                         public void onSuccess(Map<String, Object> stringObjectMap) {
-                            Snackbar.make(relativeLayout,"Your account has been created",Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(relativeLayout, "Your account has been created", Snackbar.LENGTH_SHORT).show();
                             signupButton.setVisibility(View.GONE);
                             loginButton.setVisibility(View.VISIBLE);
                             retypeEditText.setVisibility(View.GONE);
@@ -107,8 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                             Snackbar.make(relativeLayout, "Something went wrong!", Snackbar.LENGTH_SHORT).show();
                         }
                     });
-                }
-                else {
+                } else {
 
                     mProgressDialog.dismiss();
                     Snackbar.make(relativeLayout, "Passwords don't match!", Snackbar.LENGTH_SHORT).show();
@@ -121,25 +123,26 @@ public class LoginActivity extends AppCompatActivity {
         passwordResetTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(loginButton.getVisibility() == View.VISIBLE)
+                if (loginButton.getVisibility() == View.VISIBLE)
                     loginButton.setVisibility(View.GONE);
-                if(passwordEditText.getVisibility() == View.VISIBLE)
+                if (passwordEditText.getVisibility() == View.VISIBLE)
                     passwordEditText.setVisibility(View.GONE);
-                if(retypeEditText.getVisibility() == View.VISIBLE)
+                if (retypeEditText.getVisibility() == View.VISIBLE)
                     retypeEditText.setVisibility(View.GONE);
-                if(createAccountButton.getVisibility() == View.VISIBLE)
+                if (createAccountButton.getVisibility() == View.VISIBLE)
                     createAccountButton.setVisibility(View.GONE);
-                if(signupButton.getVisibility() == View.VISIBLE)
+                if (signupButton.getVisibility() == View.VISIBLE)
                     signupButton.setVisibility(View.GONE);
 
                 ref.resetPassword(emailEditText.getText().toString(), new Firebase.ResultHandler() {
                     @Override
                     public void onSuccess() {
-                        Snackbar.make(relativeLayout,"Password Reset Mail Sent",Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(relativeLayout, "Password Reset Mail Sent", Snackbar.LENGTH_SHORT).show();
                     }
+
                     @Override
                     public void onError(FirebaseError firebaseError) {
-                        Snackbar.make(relativeLayout,"Please Try Again",Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(relativeLayout, "Please Try Again", Snackbar.LENGTH_SHORT).show();
                     }
                 });
             }

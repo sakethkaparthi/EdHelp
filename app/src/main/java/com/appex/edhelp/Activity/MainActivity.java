@@ -32,6 +32,7 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
+import chipset.potato.Potato;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(item.getItemId() == R.id.action_saved){
 
-            RealmResults<Favourites> favourites = realm.where(Favourites.class).equalTo("userID",LoginActivity.userID)
+            RealmResults<Favourites> favourites = realm.where(Favourites.class).equalTo("userID", Potato.potate(getApplicationContext()).Preferences().getSharedPreferenceString("uid"))
                     .beginGroup().findAll();
             ArrayList<Favourites> favouritesArrayList = new ArrayList<>(favourites.subList(0,favourites.size()));
             Log.d("Data",Integer.toString(favourites.size()));

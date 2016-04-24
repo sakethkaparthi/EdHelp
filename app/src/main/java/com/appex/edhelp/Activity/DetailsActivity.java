@@ -17,6 +17,7 @@ import com.appex.edhelp.Models.Favourites;
 import com.appex.edhelp.R;
 import com.bumptech.glide.Glide;
 
+import chipset.potato.Potato;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
@@ -94,7 +95,7 @@ public class DetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 realm.beginTransaction();
                 Favourites favourites = realm.createObject(Favourites.class);
-                favourites.setUserID(LoginActivity.userID);
+                favourites.setUserID(Potato.potate(getApplicationContext()).Preferences().getSharedPreferenceString("uid"));
                 favourites.setId(college.getId());
                 realm.commitTransaction();
             }
