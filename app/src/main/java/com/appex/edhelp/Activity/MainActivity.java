@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
@@ -23,6 +24,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.appex.edhelp.Adapters.CollegesAdapter;
 import com.appex.edhelp.Models.College;
+import com.appex.edhelp.Models.Favourites;
 import com.appex.edhelp.R;
 
 import org.json.JSONArray;
@@ -32,6 +34,7 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_sort_name) {
             loadData();
-        } else if (item.getItemId() == R.id.action_sort_branch) {
+        }
+        else if (item.getItemId() == R.id.action_sort_branch) {
             final EditText editText = new EditText(getApplicationContext());
             editText.setTextColor(getResources().getColor(R.color.colorPrimary));
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -87,9 +91,9 @@ public class MainActivity extends AppCompatActivity {
                     LinearLayout.LayoutParams.MATCH_PARENT);
             editText.setLayoutParams(lp);
             AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                    .setTitle("Enter the branch name")
+                    .setTitle("Enter The Branch Name")
                     .setView(editText)
-                    .setPositiveButton("search", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("Search", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             collegesAdapter = new CollegesAdapter(getApplicationContext(), collegeArrayList, editText.getText().toString());
@@ -98,6 +102,20 @@ public class MainActivity extends AppCompatActivity {
                     });
             builder.create().show();
         }
+        else if (item.getItemId() == R.id.action_logout){
+            LoginActivity.ref.unauth();
+            startActivity(new Intent(this, LoginActivity.class));
+        }
+        else if(item.getItemId() == R.id.action_saved){
+
+            RealmResults<Favourites> favourites = realm.where(Favourites.class).equalTo("userID",LoginActivity.userID)
+                    .beginGroup().findAll();
+            ArrayList<Favourites> favouritesArrayList = new ArrayList<>(favourites.subList(0,favourites.size()));
+            Log.d("Data",Integer.toString(favourites.size()));
+            collegesAdapter = new CollegesAdapter(getApplicationContext(), collegeArrayList, favouritesArrayList );
+            mRecyclerView.setAdapter(collegesAdapter);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

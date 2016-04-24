@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.appex.edhelp.Models.College;
+import com.appex.edhelp.Models.Favourites;
 import com.appex.edhelp.R;
 import com.bumptech.glide.Glide;
 
@@ -21,6 +22,10 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 public class DetailsActivity extends AppCompatActivity {
+
+    FloatingActionButton mapFloatingActionButton;
+    TextView favouriteTextView;
+    Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +36,7 @@ public class DetailsActivity extends AppCompatActivity {
         RealmConfiguration realmConfig = new RealmConfiguration.Builder(this)
                 .deleteRealmIfMigrationNeeded()
                 .build();
-        Realm realm = Realm.getInstance(realmConfig);
+        realm = Realm.getInstance(realmConfig);
         int id = getIntent().getExtras().getInt("id");
         RealmResults<College> colleges = realm.where(College.class).equalTo("id", id)
                 .beginGroup().findAll();
@@ -47,6 +52,7 @@ public class DetailsActivity extends AppCompatActivity {
         TextView applicationTextView = (TextView) findViewById(R.id.college_application);
         TextView deadlineTextView = (TextView) findViewById(R.id.college_deadline);
         TextView websiteTextView = (TextView) findViewById(R.id.college_website);
+        favouriteTextView = (TextView) findViewById(R.id.favourites_textview);
 
         CharSequence branches = Html.fromHtml(String.format(res.getString(R.string.branches)));
         branchesTextView.setText(branches);
@@ -71,7 +77,7 @@ public class DetailsActivity extends AppCompatActivity {
         for(String branch : branchList)
             branchesTextView.append("\n"+branch);
 
-        FloatingActionButton mapFloatingActionButton = (FloatingActionButton) findViewById(R.id.map_floating_button);
+        mapFloatingActionButton = (FloatingActionButton) findViewById(R.id.map_floating_button);
         mapFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,5 +88,17 @@ public class DetailsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        favouriteTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                realm.beginTransaction();
+                Favourites favourites = realm.createObject(Favourites.class);
+                favourites.setUserID(LoginActivity.userID);
+                favourites.setId(college.getId());
+                realm.commitTransaction();
+            }
+        });
+
     }
 }

@@ -82,9 +82,17 @@
             android:text="@string/signup"
             android:textSize="18sp"
             android:visibility="gone"/>
-
-
-
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_margin="10dp"
+        android:text="@string/reset"
+        android:id="@+id/password_reset_textview"/>
 
 </RelativeLayout>

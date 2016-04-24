@@ -71,6 +71,16 @@
             android:text="@string/website"
             android:fontFamily="sans-serif-condensed"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/favourites_textview"
+            android:text="Set As Favourite"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="17sp"
+            android:textColor="@android:color/black"
+            android:layout_margin="5dp"/>
+
     </LinearLayout>
 </android.support.v7.widget.CardView>
 </android.support.v4.widget.NestedScrollView>

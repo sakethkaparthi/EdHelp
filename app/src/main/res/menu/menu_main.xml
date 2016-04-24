@@ -9,14 +9,24 @@
         app:showAsAction="always|collapseActionView" />
     <item
         android:id="@+id/action_sort_name"
-        android:title="search by name"
+        android:title="@string/name"
         app:showAsAction="never"
         android:orderInCategory="1"
         />
     <item
         android:id="@+id/action_sort_branch"
-        android:title="branches available"
+        android:title="@string/branch"
         app:showAsAction="never"
         android:orderInCategory="1"
         />
+    <item
+        android:id="@+id/action_logout"
+        android:title="@string/logout"
+        app:showAsAction="never"
+        android:orderInCategory="1"/>
+    <item
+        android:id="@+id/action_saved"
+        android:title="Saved Colleges"
+        app:showAsAction="never"
+        android:orderInCategory="1"/>
 </menu>

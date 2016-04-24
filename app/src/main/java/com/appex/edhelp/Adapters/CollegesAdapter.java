@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.appex.edhelp.Activity.DetailsActivity;
 import com.appex.edhelp.Models.College;
+import com.appex.edhelp.Models.Favourites;
 import com.appex.edhelp.R;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
     ArrayList<College> allColleges;
     String branch;
 
-    public CollegesAdapter( Context mContext,ArrayList<College> collegeArray, String branch) {
+    public CollegesAdapter(Context mContext,ArrayList<College> collegeArray, String branch) {
         this.collegeArrayList = new ArrayList<>();
         for (College college : collegeArray) {
             String[] branches = college.getBranches().split(",", 0);
@@ -36,6 +37,17 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
         }
         this.mContext = mContext;
         this.branch = branch;
+    }
+
+    public CollegesAdapter(Context mContext, ArrayList<College> collegeArray, ArrayList<Favourites> favourites){
+        this.collegeArrayList = new ArrayList<>();
+        for(College college : collegeArray){
+            for(int i = 0; i < favourites.size(); i++)
+                if(favourites.get(i).getId() == college.getId())
+                    collegeArrayList.add(college);
+        }
+        this.mContext = mContext;
+        this.branch = null;
     }
 
     @Override
