@@ -24,6 +24,19 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
     Context mContext;
     ArrayList<College> collegeArrayList;
     ArrayList<College> allColleges;
+    String branch;
+
+    public CollegesAdapter( Context mContext,ArrayList<College> collegeArray, String branch) {
+        this.collegeArrayList = new ArrayList<>();
+        for (College college : collegeArray) {
+            String[] branches = college.getBranches().split(",", 0);
+            for (String br : branches)
+                if (br.toLowerCase().contains(branch.toLowerCase()))
+                    collegeArrayList.add(college);
+        }
+        this.mContext = mContext;
+        this.branch = branch;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -36,6 +49,7 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
         this.collegeArrayList = collegeArrayList;
         allColleges = new ArrayList<>();
         allColleges.addAll(collegeArrayList);
+        branch = null;
     }
 
     @Override

@@ -3,14 +3,18 @@ package com.appex.edhelp.Activity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -40,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         android.support.v7.widget.SearchView search = (android.support.v7.widget.SearchView) MenuItemCompat.getActionView(searchItem);
         // Configure the search info and add any event listeners
-        SearchManager searchManager = (SearchManager)this.getSystemService(Context.SEARCH_SERVICE);
+        SearchManager searchManager = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
         search.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
         search.setIconifiedByDefault(false);
         search.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
@@ -69,6 +73,32 @@ public class MainActivity extends AppCompatActivity {
         });
         search.setSubmitButtonEnabled(false);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_sort_name) {
+            loadData();
+        } else if (item.getItemId() == R.id.action_sort_branch) {
+            final EditText editText = new EditText(getApplicationContext());
+            editText.setTextColor(getResources().getColor(R.color.colorPrimary));
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+            editText.setLayoutParams(lp);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                    .setTitle("Enter the branch name")
+                    .setView(editText)
+                    .setPositiveButton("search", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            collegesAdapter = new CollegesAdapter(getApplicationContext(), collegeArrayList, editText.getText().toString());
+                            mRecyclerView.setAdapter(collegesAdapter);
+                        }
+                    });
+            builder.create().show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

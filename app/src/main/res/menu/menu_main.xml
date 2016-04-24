@@ -7,4 +7,16 @@
         android:title="@string/abc_search_hint"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
+    <item
+        android:id="@+id/action_sort_name"
+        android:title="search by name"
+        app:showAsAction="never"
+        android:orderInCategory="1"
+        />
+    <item
+        android:id="@+id/action_sort_branch"
+        android:title="branches available"
+        app:showAsAction="never"
+        android:orderInCategory="1"
+        />
 </menu>
