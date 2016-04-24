@@ -39,7 +39,7 @@ import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
 
-    static final String url = "https://api.myjson.com/bins/2peim";
+    static final String url = "https://api.myjson.com/bins/2l8wi";
     RecyclerView mRecyclerView;
     ProgressDialog mProgressDialog;
     CollegesAdapter collegesAdapter;

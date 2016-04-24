@@ -2,6 +2,7 @@ package com.appex.edhelp.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,7 +27,7 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
     ArrayList<College> collegeArrayList;
     ArrayList<College> allColleges;
     String branch;
-
+    int colors[] = {R.color.a,R.color.b,R.color.c,R.color.d,R.color.e,R.color.f,R.color.g};
     public CollegesAdapter(Context mContext,ArrayList<College> collegeArray, String branch) {
         this.collegeArrayList = new ArrayList<>();
         for (College college : collegeArray) {
@@ -66,11 +67,12 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        int k = colors[position % colors.length];
         final College college = collegeArrayList.get(position);
         holder.collegeNameTextView.setText(college.getName());
         holder.addressTextView.setText(college.getLocation());
         holder.contactTextView.setText(college.getContact());
+        holder.cardView.setCardBackgroundColor(ContextCompat.getColor(mContext,k));
         holder.cardView.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
