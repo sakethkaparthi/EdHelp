@@ -15,7 +15,7 @@
         android:layout_margin="20dp"
         android:textSize="90sp"
         android:gravity="center_horizontal"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
         android:text="@string/app_name"/>
 
     <LinearLayout
@@ -35,10 +35,10 @@
                 android:hint="@string/email"
                 android:textSize="18sp"
                 android:layout_margin="5dp"
-                android:textColor="#fff"
-                android:textColorHint="#fff"
-                android:textColorHighlight="#fff"
-                android:shadowColor="#fff"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary"
+                android:textColorHighlight="@color/colorPrimary"
+                android:shadowColor="@color/colorPrimary"
                 style="@style/EditText"
                 android:fontFamily="sans-serif-condensed"/>
 
@@ -54,7 +54,7 @@
                 android:inputType="textPassword"
                 android:layout_margin="5dp"
                 style="@style/EditText"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorPrimary"
                 android:textSize="17sp"
                 android:hint="@string/password"/>
 
@@ -81,7 +81,7 @@
             android:background="#00000000"
             android:layout_margin="5dp"
             android:text="@string/login"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorPrimary"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:layout_gravity="center_horizontal"
@@ -95,14 +95,14 @@
             android:layout_margin="5dp"
             android:text="@string/create"
             android:layout_gravity="center_horizontal"
-            android:textColor="#fff"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
 
         <Button
             android:id="@+id/signup_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
+            android:background="@color/colorPrimary"
             android:layout_margin="5dp"
             android:text="@string/signup"
             android:textSize="18sp"
@@ -115,7 +115,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:textSize="18sp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/colorPrimary"
         android:layout_margin="10dp"
         android:text="@string/reset"
         android:id="@+id/password_reset_textview"/>
