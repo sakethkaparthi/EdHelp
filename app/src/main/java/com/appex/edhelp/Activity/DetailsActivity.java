@@ -11,6 +11,7 @@ import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.appex.edhelp.Models.College;
 import com.appex.edhelp.Models.Favourites;
@@ -98,6 +99,7 @@ public class DetailsActivity extends AppCompatActivity {
                 favourites.setUserID(Potato.potate(getApplicationContext()).Preferences().getSharedPreferenceString("uid"));
                 favourites.setId(college.getId());
                 realm.commitTransaction();
+                Toast.makeText(DetailsActivity.this, "Added to favorites", Toast.LENGTH_SHORT).show();
             }
         });
 
