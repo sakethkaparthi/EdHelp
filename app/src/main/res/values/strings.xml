@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ed-help</string>
+    <string name="app_name">Ed-Help</string>
     <string name="title_activity_details">DetailsActivity</string>
     <string name="fees">&lt;b>Fees: &lt;/b> Rs. %1$d</string>
     <string name="deadline">&lt;b>Application Deadline: &lt;/b> %1$s</string>

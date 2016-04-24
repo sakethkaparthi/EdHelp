@@ -27,7 +27,7 @@ public class CollegesAdapter extends RecyclerView.Adapter<CollegesAdapter.ViewHo
     ArrayList<College> collegeArrayList;
     ArrayList<College> allColleges;
     String branch;
-    int colors[] = {R.color.a,R.color.b,R.color.c,R.color.d,R.color.e,R.color.f,R.color.g};
+    int colors[] = {R.color.a,R.color.b,R.color.c,R.color.d,R.color.e};
     public CollegesAdapter(Context mContext,ArrayList<College> collegeArray, String branch) {
         this.collegeArrayList = new ArrayList<>();
         for (College college : collegeArray) {

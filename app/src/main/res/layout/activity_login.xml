@@ -4,9 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/login_layout"
-    android:background="@drawable/blurred_background_2"
+    android:background="@drawable/bg_crop"
     tools:context="com.appex.edhelp.Activity.LoginActivity"
     >
+
+    <TextView
+        android:id="@+id/branding_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textSize="90sp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorAccent"
+        android:text="@string/app_name"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,10 +54,8 @@
                 android:inputType="textPassword"
                 android:layout_margin="5dp"
                 style="@style/EditText"
-                android:textColor="#fff"
-                android:textColorHint="#fff"
-                android:textColorHighlight="#fff"
-                android:shadowColor="#fff"
+                android:textColor="@android:color/white"
+                android:textSize="17sp"
                 android:hint="@string/password"/>
 
         </android.support.design.widget.TextInputLayout>
@@ -107,7 +115,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:textSize="18sp"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@android:color/white"
         android:layout_margin="10dp"
         android:text="@string/reset"
         android:id="@+id/password_reset_textview"/>

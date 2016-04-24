@@ -2,6 +2,7 @@ package com.appex.edhelp.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -30,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText emailEditText;
     EditText passwordEditText, retypeEditText;
     ProgressDialog mProgressDialog;
-    TextView passwordResetTextView;
+    TextView passwordResetTextView, brandingTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +40,13 @@ public class LoginActivity extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         ref = new Firebase("https://edhelp.firebaseio.com");
         AuthData authData = ref.getAuth();
-        if (authData != null)
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        if (authData != null) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
         relativeLayout = (RelativeLayout) findViewById(R.id.login_layout);
+        brandingTextView = (TextView) findViewById(R.id.branding_textview);
         loginButton = (Button) findViewById(R.id.login_button);
         signupButton = (Button) findViewById(R.id.signup_button);
         emailEditText = (EditText) findViewById(R.id.email_textview);
@@ -148,6 +153,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        Typeface typeface = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/font.ttf");
+        brandingTextView.setTypeface(typeface);
 
     }
 }

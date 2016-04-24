@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.MainActivity"
-    android:background="@drawable/blurred_background_2">
+    android:background="@drawable/bg_crop">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/college_recycler_view"
